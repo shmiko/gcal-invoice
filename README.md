@@ -4,14 +4,21 @@ gcal-invoice
 invoice based on google calendar events, select the events, it will
 calculate hours per day and give you a CSV invoice
 
-Dependencies:
-
-* [Node-CSV](http://www.adaltas.com/projects/node-csv/)
-* [google-calendar](https://github.com/wanasit/google-calendar)
+this is a single-page web application using AngularJS
 
 ## Usage
 
+Run the server:
+
+    grunt run
+
+Run the unit tests:
+
+    grunt test
+
 ## Example
+
+TODO: remove the following, no longer a console-based app
 
 Here's an example of how a typical usage session will look like:
 

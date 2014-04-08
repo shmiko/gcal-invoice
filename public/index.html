@@ -9,8 +9,12 @@
     <script type="text/javascript" src="/bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/bower_components/angular-googleapi/src/angular-googleapi.js"></script>
 
-    <script type="text/javascript" src="/public/javascripts/app.js"></script>
+    <script type="text/javascript" src="/javascripts/app.js"></script>
+    <script type="text/javascript" src="/javascripts/InvoiceController.js"></script>
   </head>
-  <body ng-app>
+  <body>
+    <h1>GCal Invoice</h1>
+    <h2>Turning Google Calendar events into an invoice!</h2>
+    <div ng-view ng-controller="InvoiceController"></div>
   </body>
 </html>

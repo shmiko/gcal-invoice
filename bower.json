@@ -5,6 +5,7 @@
     "dependencies": {
         "angularjs": "*",
         "angular-googleapi": "*",
+        "angular-route": "*",
         "jquery": "*"
     }
 }

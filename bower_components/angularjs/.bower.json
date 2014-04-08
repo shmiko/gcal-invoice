@@ -1,0 +1,14 @@
+{
+  "name": "angularjs",
+  "homepage": "https://github.com/angular/angularjs.org",
+  "_release": "7b9510cfa6",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "7b9510cfa6ced5ef1bfa92bd660519d34e250e77"
+  },
+  "_source": "git://github.com/angular/angularjs.org.git",
+  "_target": "*",
+  "_originalSource": "angularjs",
+  "_direct": true
+}

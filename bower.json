@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "angularjs": "*",
-        "angular-googleapi": "*"
+        "angular-googleapi": "*",
+        "jquery": "*"
     }
 }

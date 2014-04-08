@@ -1,0 +1,7 @@
+<div ng-hide="loggedIn">
+  <p><a ng-click="login()">Login to Google Calendar</a></p>
+</div>
+<div ng-show="loggedIn">
+  <div ng-include="/partials/select_calendar.html"></div>
+  <div ng-include="/partials/select_calendar.html"></div>
+</div>

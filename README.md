@@ -10,11 +10,7 @@ this is a single-page web application using AngularJS
 
 Run the server:
 
-    grunt run
-
-Run the unit tests:
-
-    grunt test
+    node app
 
 ## Example
 

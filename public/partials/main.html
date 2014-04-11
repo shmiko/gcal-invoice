@@ -1,7 +1,25 @@
 <div ng-hide="loggedIn">
-  <p><a ng-click="login()">Login to Google Calendar</a></p>
+  <p><button ng-click="login()">Login</button></p>
 </div>
 <div ng-show="loggedIn">
-  <div ng-include="/partials/select_calendar.html"></div>
-  <div ng-include="/partials/select_calendar.html"></div>
+  <h4>Filter Events By Date</h4>
+  <p>Start Month and Year:
+    <select ng-model="startMonth" ng-options="month for month in months"></select>
+    <select ng-model="startYear" ng-options="year for year in years"></select>
+  </p>
+  <p>End Month and Year:
+    <select ng-model="endMonth" ng-options="month for month in months"></select>
+    <select ng-model="endYear" ng-options="year for year in years"></select>
+  </p>
+  <h4>Select Calendars</h4>
+  <p>
+    <label ng-repeat="calendar in calendars">
+      <input type="radio"
+             name="calendar"
+             ng-value="calendar.id" ng-click="selectedCalendar = calendar.id">{{ calendar.summary }}</input>
+      <br/>
+    </label>
+  </p>
+  <h4>Select Events</h4>
+  {{ events }}
 </div>

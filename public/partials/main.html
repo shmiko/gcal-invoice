@@ -67,7 +67,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="lineItem in invoice.lineItems">
-        <td>{{ lineItem }}</td>
+        <td>{{ lineItem.date }}</td>
         <td>{{ lineItem.description }}</td>
         <td>{{ lineItem.hoursWorked }}</td>
         <td><input type="text" ng-value="lineItem.hourlyRate" ng-model="lineItem.hourlyRate" ng-change="$parent.updateInvoice()"></input></td>

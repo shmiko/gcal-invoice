@@ -2,12 +2,15 @@ angular.module('gcalInvoice').controller(
     'InvoiceController',
     ['$scope', 'googleLogin', 'googleCalendar',
      function($scope, googleLogin, googleCalendar) {
-         $scope.invoice = { hourlyRate: 40.0 };
+         var selectedEvents = [];
+         $scope.invoice = {
+             hourlyRate: 40.0,
+             lineItems: []
+         };
          $scope.loggedIn = false;
          $scope.calendars = [];
          $scope.selectedCalendar = null;
          $scope.events = [];
-         $scope.selectedEvents = [];
          $scope.months = ['January', 'February', 'March', 'April', 'May',
                           'June', 'July', 'August', 'September', 'October',
                           'November', 'December'];
@@ -55,6 +58,15 @@ angular.module('gcalInvoice').controller(
              }
          };
 
+         $scope.addEventToSelected = function(event) {
+             selectedEvents.push(event);
+         };
+
+         $scope.updateInvoice = function() {
+             var i;
+             for (i = 0; i < selectedEvents.length; i++) {
+             }
+         };
      }
     ]
 );

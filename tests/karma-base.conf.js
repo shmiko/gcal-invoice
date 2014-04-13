@@ -21,7 +21,8 @@ module.exports = function() {
             'public/javascripts/app.js',
             'public/javascripts/InvoiceController.js',
             // test-specific code
-            'node_modules/chai/chai.js'
+            'node_modules/chai/chai.js',
+            'tests/chai-assert.js'
         ]
     };
 };

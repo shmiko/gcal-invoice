@@ -52,7 +52,7 @@ describe('Invoice Controller', function() {
             description: 'stuff',
             start: { dateTime: '2014-04-11T01:00:00.921Z' },
             end: { dateTime: '2014-04-11T02:15:00.921Z' }
-        }]
+        }];
         scope.updateInvoice();
         assert.lengthOf(scope.selectedEvents, 1);
         assert.lengthOf(scope.invoice.lineItems, 1);
@@ -79,7 +79,7 @@ describe('Invoice Controller', function() {
                 start: { dateTime: '2014-02-24T13:00:00.921Z' },
                 end: { dateTime: '2014-02-24T13:15:00.921Z' }
             }
-        ]
+        ];
 
         scope.updateInvoice();
         assert.lengthOf(scope.selectedEvents, 2);

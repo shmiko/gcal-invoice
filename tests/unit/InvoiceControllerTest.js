@@ -38,6 +38,23 @@ describe('Invoice Controller', function() {
         assert.equal(duration.asHours(), 1, 'should calculate hour difference');
     });
 
+    it('removes events from the events list when they are selected', function() {
+        var event = {
+            summary: 'work',
+            description: 'stuff',
+            start: { dateTime: '2014-04-11T01:00:00.921Z' },
+            end: { dateTime: '2014-04-11T02:00:00.921Z' }
+        };
+        scope.events = [event];
+        scope.selectedEvents = [];
+        assert.lengthOf(scope.events, 1, 'one event should exist');
+        assert.lengthOf(scope.selectedEvents, 0, 'no events have been selected');
+
+        scope.addEventToSelected(event);
+        assert.lengthOf(scope.events, 0, 'no more events to select from');
+        assert.lengthOf(scope.selectedEvents, 1, 'one selected event');
+    });
+
     it("updates each invoice line item's total when the line item's discount or hourly rate changes", function() {
         scope.selectedEvents = [{
             summary: 'work',

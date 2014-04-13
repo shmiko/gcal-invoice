@@ -30,5 +30,26 @@
     </label>
   </p>
   <h4>Select Events</h4>
-  {{ events }}
+  <table>
+    <thead>
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="event in events">
+        <td>{{ event.start.dateTime | momentUtc:'h:mma DD MMMM YYYY' }}</td>
+        <td>{{ event.end.dateTime | momentUtc:'h:mma DD MMMM YYYY' }}</td>
+        <td>{{ event.summary }}</td>
+        <td>{{ event.description }}</td>
+        <td>
+          <button ng-click="addEventToSelected(event)">add</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

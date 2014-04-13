@@ -47,13 +47,50 @@ describe('Invoice Controller', function() {
     });
 
     it('has 1 invoice line item when there is 1 selected event', function() {
+        scope.selectedEvents = [{
+            summary: 'work',
+            description: 'stuff',
+            start: { datetime: '2014-04-11T01:00:00.921Z' },
+            end: { datetime: '2014-04-11T02:15:00.921Z' }
+        }]
+        scope.updateInvoice();
         assert.lengthOf(scope.selectedEvents, 1);
         assert.lengthOf(scope.invoice.lineItems, 1);
+        lineItem = scope.invoice.lineItems[0];
+        assert.propertyVal(lineItem, 'date', '2014-04-11');
+        assert.propertyVal(lineItem, 'description', 'stuff');
+        assert.propertyVal(lineItem, 'hoursWorked', 1.25);
+        assert.propertyVal(lineItem, 'hourlyRate', scope.invoice.hourlyRate);
+        assert.propertyVal(lineItem, 'discount', 0.0);
     });
 
     it('has 1 invoice line item when there are 2 selected events that happen on the same day', function() {
+        var lineItem;
+        scope.selectedEvents = [
+            {
+                summary: 'work',
+                description: 'stuff',
+                start: { datetime: '2014-02-24T01:00:00.921Z' },
+                end: { datetime: '2014-02-24T02:15:00.921Z' }
+            },
+            {
+                summary: 'work',
+                description: 'stuff',
+                start: { datetime: '2014-02-24T13:00:00.921Z' },
+                end: { datetime: '2014-02-24T13:15:00.921Z' }
+            }
+        ]
+
+        scope.updateInvoice();
         assert.lengthOf(scope.selectedEvents, 2);
         assert.lengthOf(scope.invoice.lineItems, 1);
+
+        lineItem = scope.invoice.lineItems[0];
+        assert.propertyVal(lineItem, 'date', '2014-02-24');
+        assert.propertyVal(lineItem, 'description', 'stuff');
+        assert.propertyVal(lineItem, 'hoursWorked', 1.25 + 0.25);
+        assert.propertyVal(lineItem, 'hourlyRate', scope.invoice.hourlyRate);
+        assert.propertyVal(lineItem, 'discount', 0.0);
     });
 
     it('has 2 invoice line items when there are 3 selected events and 2 of them occur on the same day', function() {

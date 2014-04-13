@@ -2,11 +2,11 @@ angular.module('gcalInvoice').controller(
     'InvoiceController',
     ['$scope', 'googleLogin', 'googleCalendar',
      function($scope, googleLogin, googleCalendar) {
-         var selectedEvents = [];
          var dateFormatRfc3339 = 'YYYY-MM-DDTHH:mm:ssZ';
          $scope.getMomentFromGCalDateTime = function(dateString) {
              return moment.utc(dateString, dateFormatRfc3339);
          };
+         $scope.selectedEvents = [];
          $scope.invoice = {
              hourlyRate: 40.0,
              lineItems: []
@@ -62,12 +62,52 @@ angular.module('gcalInvoice').controller(
          };
 
          $scope.addEventToSelected = function(event) {
-             selectedEvents.push(event);
+             $scope.selectedEvents.push(event);
          };
 
          $scope.updateInvoice = function() {
-             var i;
-             for (i = 0; i < selectedEvents.length; i++) {
+             var lineItem;
+             var key;
+             var keys = [];
+             var dates = {};
+             $scope.invoice.lineItems = [];
+             // group the events by their date
+             angular.forEach($scope.selectedEvents, function(event, index) {
+                 var startDateTime = $scope.getMomentFromGCalDateTime(event.start.datetime);
+                 var day = startDateTime.format('YYYY-MM-DD');
+                 if (angular.isUndefined(dates[day])) {
+                     dates[day] = [];
+                 }
+                 dates[day].push(event);
+             });
+             // sort the keys so we can do this in sorted order
+             for (key in dates) {
+                 if (dates.hasOwnProperty(key)) {
+                     keys.push(key);
+                 }
+             }
+             keys.sort();
+             // create the invoice line items (in sorted order)
+             for (key in keys) {
+                 lineItem = {
+                     date: keys[key],
+                     description: [],
+                     hoursWorked: 0.0,
+                     hourlyRate: $scope.invoice.hourlyRate,
+                     discount: 0.0
+                 };
+                 angular.forEach(dates[keys[key]], function(event, index) {
+                     startDateTime = $scope.getMomentFromGCalDateTime(event.start.datetime);
+                     endDateTime = $scope.getMomentFromGCalDateTime(event.end.datetime);
+                     duration = moment.duration(endDateTime.diff(startDateTime));
+                     lineItem.hoursWorked += duration.asHours();
+
+                     if (lineItem.description.indexOf(event.description) === -1) {
+                         lineItem.description.push(event.description);
+                     }
+                 });
+                 lineItem.description = lineItem.description.join(', ');
+                 $scope.invoice.lineItems.push(lineItem);
              }
          };
      }

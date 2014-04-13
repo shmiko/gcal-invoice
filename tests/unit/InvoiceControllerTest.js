@@ -38,6 +38,23 @@ describe('Invoice Controller', function() {
         assert.equal(duration.asHours(), 1, 'should calculate hour difference');
     });
 
+    it("updates each invoice line item's total when the line item's discount or hourly rate changes", function() {
+        scope.selectedEvents = [{
+            summary: 'work',
+            description: 'stuff',
+            start: { dateTime: '2014-04-11T01:00:00.921Z' },
+            end: { dateTime: '2014-04-11T02:00:00.921Z' }
+        }];
+        scope.updateInvoice();
+        scope.invoice.lineItems[0].hourlyRate = 20.0;
+        scope.invoice.lineItems[0].discount = 5;
+        scope.updateInvoiceAmounts();
+        assert.equal(scope.invoice.lineItems[0].hoursWorked, 1.0);
+        assert.equal(scope.invoice.lineItems[0].hourlyRate, 20.0);
+        assert.equal(scope.invoice.lineItems[0].discount, 5);
+        assert.equal(scope.invoice.lineItems[0].total, 1.0 * 20.0 * (1.0 - (5 / 100.0)));
+    });
+
     it('has no invoice line items when there are no selected events', function() {
         scope.selectedEvents = [];
         scope.updateInvoice();
@@ -62,6 +79,7 @@ describe('Invoice Controller', function() {
         assert.propertyVal(lineItem, 'hoursWorked', 1.25);
         assert.propertyVal(lineItem, 'hourlyRate', scope.invoice.hourlyRate);
         assert.propertyVal(lineItem, 'discount', 0.0);
+        assert.propertyVal(lineItem, 'total', 1.25 * scope.invoice.hourlyRate);
     });
 
     it('has 1 invoice line item when there are 2 selected events that happen on the same day', function() {
@@ -91,6 +109,7 @@ describe('Invoice Controller', function() {
         assert.propertyVal(lineItem, 'hoursWorked', 1.25 + 0.25);
         assert.propertyVal(lineItem, 'hourlyRate', scope.invoice.hourlyRate);
         assert.propertyVal(lineItem, 'discount', 0.0);
+        assert.propertyVal(lineItem, 'total', scope.invoice.hourlyRate * (1.25 + 0.25));
     });
 
     it('has 2 invoice line items when there are 3 selected events and 2 of them occur on the same day', function() {

@@ -9,7 +9,8 @@ angular.module('gcalInvoice').controller(
          $scope.selectedEvents = [];
          $scope.invoice = {
              hourlyRate: 40.0,
-             lineItems: []
+             lineItems: [],
+             total: 0.0
          };
          $scope.loggedIn = false;
          $scope.calendars = [];
@@ -71,6 +72,7 @@ angular.module('gcalInvoice').controller(
              var key;
              var keys = [];
              var dates = {};
+             $scope.invoice.total = 0.0;
              $scope.invoice.lineItems = [];
              // group the events by their date
              angular.forEach($scope.selectedEvents, function(event, index) {
@@ -103,6 +105,9 @@ angular.module('gcalInvoice').controller(
                      duration = moment.duration(endDateTime.diff(startDateTime));
                      lineItem.hoursWorked += duration.asHours();
 
+                     lineItem.total = lineItem.hoursWorked * lineItem.hourlyRate * (1.0 - (lineItem.discount / 100.0));
+                     $scope.invoice.total += lineItem.total;
+
                      if (lineItem.description.indexOf(event.description) === -1) {
                          lineItem.description.push(event.description);
                      }
@@ -110,6 +115,15 @@ angular.module('gcalInvoice').controller(
                  lineItem.description = lineItem.description.join(', ');
                  $scope.invoice.lineItems.push(lineItem);
              }
+         };
+
+         $scope.updateInvoiceAmounts = function() {
+             $scope.invoice.total = 0.0;
+             angular.forEach($scope.invoice.lineItems, function(lineItem, index) {
+                 lineItem.total = lineItem.hoursWorked * lineItem.hourlyRate * (1.0 - (lineItem.discount / 100.0));
+                 $scope.invoice.total += lineItem.total;
+             });
+             console.log($scope.invoice.total);
          };
      }
     ]

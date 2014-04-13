@@ -19,6 +19,23 @@ describe('Invoice Controller', function() {
         assert.isTrue(0.00 <= scope.invoice.hourlyRate && scope.invoice.hourlyRate <= 1000.00);
     });
 
+    it('should convert Google Calendar event dates into moment objects', function() {
+        var momentObj = scope.getMomentFromGCalDateTime('2014-04-11T01:00:00.921Z');
+        var otherMomentObj;
+        var duration;
+        assert.equal(momentObj.year(), 2014, 'years should be equal');
+        assert.equal(momentObj.month(), 3, 'months should be equal (they are zero-indexed)');
+        assert.equal(momentObj.date(), 11, 'days should be equal');
+        assert.equal(momentObj.hour(), 1, 'hours should be equal (they are zero-indexed)');
+        assert.equal(momentObj.minutes(), 0, 'minutes should be equal');
+        assert.equal(momentObj.seconds(), 0, 'second should be equal');
+        assert.equal(momentObj.milliseconds(), 0, 'milliseconds should not be parsed');
+
+        otherMomentObj = scope.getMomentFromGCalDateTime('2014-04-11T02:00:00.921Z');
+        assert.equal(otherMomentObj.hour(), 2, 'hours should be equal (they are zero-indexed)');
+
+        duration = moment.duration(otherMomentObj.diff(momentObj));
+        assert.equal(duration.asHours(), 1, 'should calculate hour difference');
     });
 
     it('has no invoice line items when there are no selected events', function() {

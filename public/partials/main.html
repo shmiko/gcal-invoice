@@ -4,19 +4,28 @@
 <div ng-show="loggedIn">
   <h4>Filter Events By Date</h4>
   <p>Start Month and Year:
-    <select ng-model="startMonth" ng-options="month for month in months"></select>
-    <select ng-model="startYear" ng-options="year for year in years"></select>
+    <select ng-model="startMonth"
+            ng-options="month for month in months"
+            ng-change="selectCalendarAndFilterEvents()"></select>
+    <select ng-model="startYear"
+            ng-options="year for year in years"
+            ng-change="selectCalendarAndFilterEvents()"></select>
   </p>
   <p>End Month and Year:
-    <select ng-model="endMonth" ng-options="month for month in months"></select>
-    <select ng-model="endYear" ng-options="year for year in years"></select>
+    <select ng-model="endMonth"
+            ng-options="month for month in months"
+            ng-change="selectCalendarAndFilterEvents()"></select>
+    <select ng-model="endYear"
+            ng-options="year for year in years"
+            ng-change="selectCalendarAndFilterEvents()"></select>
   </p>
   <h4>Select Calendars</h4>
   <p>
     <label ng-repeat="calendar in calendars">
       <input type="radio"
              name="calendar"
-             ng-value="calendar.id" ng-click="selectedCalendar = calendar.id">{{ calendar.summary }}</input>
+             ng-model="$parent.selectedCalendar"
+             ng-value="calendar.id" ng-change="selectCalendarAndFilterEvents()">{{ calendar.summary }}</input>
       <br/>
     </label>
   </p>

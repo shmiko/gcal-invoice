@@ -52,4 +52,34 @@
       </tr>
     </tbody>
   </table>
+  <h4>Invoice</h4>
+  <p>Hourly rate: <input type="text" ng-model="invoice.hourlyRate" ng-changed="updateInvoice"></input></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Hours Worked</th>
+        <th>Hourly Rate</th>
+        <th>Discount</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="lineItem in invoice.lineItems">
+        <td>{{ lineItem }}</td>
+        <td>{{ lineItem.description }}</td>
+        <td>{{ lineItem.hoursWorked }}</td>
+        <td><input type="text" ng-value="lineItem.hourlyRate" ng-model="lineItem.hourlyRate" ng-change="$parent.updateInvoice()"></input></td>
+        <td><input type="text" ng-value="0.00" ng-model="lineItem.discount" ng-change="$parent.updateInvoice()"></input></td>
+        <td>{{ lineItem.total }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Total Price</th>
+        <td ng-bind="selectedEventsTotalPrice"></td>
+      </tr>
+    </tfoot>
+  </table>
 </div>

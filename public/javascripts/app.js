@@ -1,4 +1,4 @@
-angular.module('gcalInvoice', ['ngRoute', 'googleApi'])
+angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs'])
     .config(function(googleLoginProvider) {
         googleLoginProvider.configure({
             clientId: '141159713889-6t2m78ce3fl53duingebjplpm26e861f.apps.googleusercontent.com',

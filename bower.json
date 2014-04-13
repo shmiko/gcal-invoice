@@ -7,6 +7,7 @@
     "angular-googleapi": "*",
     "angular-route": "*",
     "jquery": "*",
-    "momentjs": "~2.6.0"
+    "momentjs": "~2.6.0",
+    "angular-mocks": "~1.2.16"
   }
 }

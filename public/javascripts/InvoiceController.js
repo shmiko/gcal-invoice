@@ -2,6 +2,7 @@ angular.module('gcalInvoice').controller(
     'InvoiceController',
     ['$scope', 'googleLogin', 'googleCalendar',
      function($scope, googleLogin, googleCalendar) {
+         $scope.invoice = { hourlyRate: 40.0 };
          $scope.loggedIn = false;
          $scope.calendars = [];
          $scope.selectedCalendar = null;

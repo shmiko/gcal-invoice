@@ -50,8 +50,8 @@ describe('Invoice Controller', function() {
         scope.selectedEvents = [{
             summary: 'work',
             description: 'stuff',
-            start: { datetime: '2014-04-11T01:00:00.921Z' },
-            end: { datetime: '2014-04-11T02:15:00.921Z' }
+            start: { dateTime: '2014-04-11T01:00:00.921Z' },
+            end: { dateTime: '2014-04-11T02:15:00.921Z' }
         }]
         scope.updateInvoice();
         assert.lengthOf(scope.selectedEvents, 1);
@@ -70,14 +70,14 @@ describe('Invoice Controller', function() {
             {
                 summary: 'work',
                 description: 'stuff',
-                start: { datetime: '2014-02-24T01:00:00.921Z' },
-                end: { datetime: '2014-02-24T02:15:00.921Z' }
+                start: { dateTime: '2014-02-24T01:00:00.921Z' },
+                end: { dateTime: '2014-02-24T02:15:00.921Z' }
             },
             {
                 summary: 'work',
                 description: 'stuff',
-                start: { datetime: '2014-02-24T13:00:00.921Z' },
-                end: { datetime: '2014-02-24T13:15:00.921Z' }
+                start: { dateTime: '2014-02-24T13:00:00.921Z' },
+                end: { dateTime: '2014-02-24T13:15:00.921Z' }
             }
         ]
 

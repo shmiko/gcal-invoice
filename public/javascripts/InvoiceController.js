@@ -3,6 +3,10 @@ angular.module('gcalInvoice').controller(
     ['$scope', 'googleLogin', 'googleCalendar',
      function($scope, googleLogin, googleCalendar) {
          var selectedEvents = [];
+         var dateFormatRfc3339 = 'YYYY-MM-DDTHH:mm:ssZ';
+         $scope.getMomentFromGCalDateTime = function(dateString) {
+             return moment.utc(dateString, dateFormatRfc3339);
+         };
          $scope.invoice = {
              hourlyRate: 40.0,
              lineItems: []
@@ -33,7 +37,6 @@ angular.module('gcalInvoice').controller(
          });
 
          $scope.selectCalendarAndFilterEvents = function() {
-             var dateFormatRfc3339 = 'YYYY-MM-DDTHH:mm:ssZ';
              var params = { calendarId: $scope.selectedCalendar };
              if ($scope.startYear) {
                  if ($scope.startMonth) {

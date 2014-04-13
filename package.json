@@ -6,6 +6,15 @@
     "dependencies": {
         "csv": "0.3.x",
         "express": "3.4.7",
-        "bower": "1.x.x"
+        "bower": "1.x.x",
+        "grunt": "*",
+        "chai": "*",
+        "karma-mocha": "*",
+        "karma-chrome-launcher": "*",
+        "karma-firefox-launcher": "*",
+        "karma-phantomjs-launcher": "*",
+        "karma-ng-scenario": "*",
+        "karma": "*",
+        "grunt-karma": "*"
     }
 }

@@ -63,6 +63,7 @@ angular.module('gcalInvoice').controller(
 
          $scope.addEventToSelected = function(event) {
              $scope.selectedEvents.push(event);
+             $scope.updateInvoice();
          };
 
          $scope.updateInvoice = function() {

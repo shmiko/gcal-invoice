@@ -16,7 +16,9 @@ describe('Invoice Controller', function() {
 
     it("should set the default invoice hourly rate between 0.00 and 1000.00", function() {
         assert.isNotNull(scope.invoice.hourlyRate);
-        assert(0.00 <= scope.invoice.hourlyRate && scope.invoice.hourlyRate <= 1000.00);
+        assert.isTrue(0.00 <= scope.invoice.hourlyRate && scope.invoice.hourlyRate <= 1000.00);
+    });
+
     });
 
     it('has no invoice line items when there are no selected events', function() {

@@ -8,6 +8,7 @@
     "angular-route": "*",
     "jquery": "*",
     "momentjs": "~2.6.0",
-    "angular-mocks": "~1.2.16"
+    "angular-mocks": "~1.2.16",
+    "bootstrap": "~3.1.1"
   }
 }

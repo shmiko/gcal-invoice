@@ -66,7 +66,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="lineItem in invoice.lineItems">
+      <tr ng-repeat="lineItem in invoice.lineItems | orderBy:'+date'">
         <td>{{ lineItem.date }}</td>
         <td>{{ lineItem.description }}</td>
         <td>{{ lineItem.hoursWorked }}</td>

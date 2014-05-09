@@ -38,6 +38,42 @@ describe('Invoice Controller', function() {
         assert.equal(duration.asHours(), 1, 'should calculate hour difference');
     });
 
+    it('lists all event ids that were used in creating the invoice', function() {
+        var eventId = '12938kajsda90w8deqw2e';
+        var event = {
+            id: eventId,
+            summary: 'work',
+            description: 'stuff',
+            start: { dateTime: '2014-04-11T01:00:00.921Z' },
+            end: { dateTime: '2014-04-11T02:00:00.921Z' }
+        };
+        scope.selectedEvents = [event];
+        assert.property(scope.invoice, 'eventIds');
+        assert.lengthOf(scope.invoice.eventIds, 0);
+        scope.updateInvoice();
+        assert.lengthOf(scope.invoice.eventIds, 1);
+        assert.equal(scope.invoice.eventIds[0], eventId);
+    });
+
+    it('does not add events that are already in the invoice', function() {
+        var event = {
+            id: '12938kajsda90w8deqw2e',
+            summary: 'work',
+            description: 'stuff',
+            start: { dateTime: '2014-04-11T01:00:00.921Z' },
+            end: { dateTime: '2014-04-11T02:00:00.921Z' }
+        };
+        scope.selectedEvents = [];
+        scope.updateInvoice();
+        assert.lengthOf(scope.invoice.eventIds, 0);
+
+        scope.addEventToSelected(event);
+        assert.lengthOf(scope.invoice.eventIds, 1);
+
+        scope.addEventToSelected(event);
+        assert.lengthOf(scope.invoice.eventIds, 1);
+    });
+
     it('removes events from the events list when they are selected', function() {
         var event = {
             summary: 'work',

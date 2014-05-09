@@ -8,6 +8,7 @@ angular.module('gcalInvoice').controller(
          };
          $scope.selectedEvents = [];
          $scope.invoice = {
+             eventIds: [],
              hourlyRate: 40.0,
              lineItems: [],
              total: 0.0
@@ -63,11 +64,14 @@ angular.module('gcalInvoice').controller(
          };
 
          $scope.addEventToSelected = function(event) {
-             var eventIndex;
-             $scope.selectedEvents.push(event);
-             eventIndex = $scope.events.indexOf(event);
-             $scope.events.splice(eventIndex, 1);
-             $scope.updateInvoice();
+             var index;
+             index = $scope.invoice.eventIds.indexOf(event.id);
+             if (index === -1) {
+                 $scope.selectedEvents.push(event);
+                 index = $scope.events.indexOf(event);
+                 $scope.events.splice(index, 1);
+                 $scope.updateInvoice();
+             }
          };
 
          $scope.updateInvoice = function() {
@@ -77,6 +81,7 @@ angular.module('gcalInvoice').controller(
              var dates = {};
              $scope.invoice.total = 0.0;
              $scope.invoice.lineItems = [];
+             $scope.invoice.eventIds = [];
              // group the events by their date
              angular.forEach($scope.selectedEvents, function(event, index) {
                  var startDateTime = $scope.getMomentFromGCalDateTime(event.start.dateTime);
@@ -108,16 +113,17 @@ angular.module('gcalInvoice').controller(
                      duration = moment.duration(endDateTime.diff(startDateTime));
                      lineItem.hoursWorked += duration.asHours();
 
-                     lineItem.total = lineItem.hoursWorked * lineItem.hourlyRate * (1.0 - (lineItem.discount / 100.0));
-                     $scope.invoice.total += lineItem.total;
-
                      if (lineItem.description.indexOf(event.description) === -1) {
                          lineItem.description.push(event.description);
                      }
+
+                     $scope.invoice.eventIds.push(event.id);
                  });
                  lineItem.description = lineItem.description.join(', ');
                  $scope.invoice.lineItems.push(lineItem);
              }
+
+             $scope.updateInvoiceAmounts();
          };
 
          $scope.updateInvoiceAmounts = function() {
@@ -126,7 +132,6 @@ angular.module('gcalInvoice').controller(
                  lineItem.total = lineItem.hoursWorked * lineItem.hourlyRate * (1.0 - (lineItem.discount / 100.0));
                  $scope.invoice.total += lineItem.total;
              });
-             console.log($scope.invoice.total);
          };
      }
     ]

@@ -1,7 +1,7 @@
 angular.module('gcalInvoice').controller(
     'InvoiceController',
-    ['$scope', 'googleLogin', 'googleCalendar',
-     function($scope, googleLogin, googleCalendar) {
+    ['$scope', 'googleLogin', 'googleCalendar', '$location', '$window',
+     function($scope, googleLogin, googleCalendar, $location, $window) {
          var dateFormatRfc3339 = 'YYYY-MM-DDTHH:mm:ssZ';
          $scope.getMomentFromGCalDateTime = function(dateString) {
              return moment.utc(dateString, dateFormatRfc3339);
@@ -37,6 +37,14 @@ angular.module('gcalInvoice').controller(
                  $scope.calendars = calendars;
              });
          });
+
+         console.log(gapi.auth);
+         // check to see if the route was to login, if so, open the google calendar login form
+         if ($location.path() === '/login/') {
+             $window.setTimeout(function() {
+                 $scope.login();
+             }, 300);
+         }
 
          $scope.selectCalendarAndFilterEvents = function() {
              var params = { calendarId: $scope.selectedCalendar };

@@ -10,6 +10,8 @@ angular.module('gcalInvoice').controller(
          $scope.invoice = {
              eventIds: [],
              hourlyRate: 40.0,
+             taxRate: 0.0,
+             currency: '$',
              lineItems: [],
              subTotal: 0.0,
              total: 0.0

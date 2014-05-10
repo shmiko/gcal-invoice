@@ -78,7 +78,7 @@
     <tfoot>
       <tr>
         <th>Total Price</th>
-        <td ng-bind="selectedEventsTotalPrice"></td>
+        <td>{{ invoice.total | currency }}</td>
       </tr>
     </tfoot>
   </table>

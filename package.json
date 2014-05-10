@@ -1,20 +1,22 @@
 {
-    "name": "gcal-invoice",
-    "version": "0.0.1",
-    "private": true,
-    "author": "Rudolf Olah <omouse@gmail.com>",
-    "dependencies": {
-        "csv": "0.3.x",
-        "express": "3.4.7",
-        "bower": "1.x.x",
-        "grunt": "*",
-        "chai": "*",
-        "karma-mocha": "*",
-        "karma-chrome-launcher": "*",
-        "karma-firefox-launcher": "*",
-        "karma-phantomjs-launcher": "*",
-        "karma-ng-scenario": "*",
-        "karma": "*",
-        "grunt-karma": "*"
-    }
+  "name": "gcal-invoice",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Rudolf Olah <omouse@gmail.com>",
+  "dependencies": {
+    "csv": "0.3.x",
+    "express": "3.4.7",
+    "bower": "1.x.x",
+    "grunt": "*",
+    "chai": "*",
+    "karma-mocha": "*",
+    "karma-chrome-launcher": "*",
+    "karma-firefox-launcher": "*",
+    "karma-phantomjs-launcher": "*",
+    "karma-ng-scenario": "*",
+    "karma": "*",
+    "grunt-karma": "*",
+    "less": "~1.7.0",
+    "grunt-contrib-less": "~0.11.0"
+  }
 }

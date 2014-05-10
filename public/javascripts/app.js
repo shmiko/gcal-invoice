@@ -14,5 +14,9 @@ angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs'])
                 templateUrl: '/partials/main.html',
                 controller: 'InvoiceController'
             })
+            .when('/login/', {
+                templateUrl: '/partials/main.html',
+                controller: 'InvoiceController'
+            })
             .otherwise({ redirectTo: '/' });
     });

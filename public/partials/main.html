@@ -70,9 +70,17 @@
         <td>{{ lineItem.date }}</td>
         <td>{{ lineItem.description }}</td>
         <td>{{ lineItem.hoursWorked }}</td>
-        <td><input type="text" ng-value="lineItem.hourlyRate" ng-model="lineItem.hourlyRate" ng-change="$parent.updateInvoice()"></input></td>
-        <td><input type="text" ng-value="0.00" ng-model="lineItem.discount" ng-change="$parent.updateInvoice()"></input></td>
-        <td>{{ lineItem.total }}</td>
+        <td><input type="text"
+                   ng-value="lineItem.hourlyRate"
+                   ng-model="lineItem.hourlyRate"
+                   ng-change="updateInvoiceAmounts()"></input>
+        </td>
+        <td><input type="text"
+                   ng-value="lineItem.discount"
+                   ng-model="lineItem.discount"
+                   ng-change="updateInvoiceAmounts()"></input>
+        </td>
+        <td>{{ lineItem.total | currency }}</td>
       </tr>
     </tbody>
     <tfoot>

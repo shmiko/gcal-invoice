@@ -11,6 +11,7 @@ angular.module('gcalInvoice').controller(
              eventIds: [],
              hourlyRate: 40.0,
              lineItems: [],
+             subTotal: 0.0,
              total: 0.0
          };
          $scope.loggedIn = false;
@@ -88,6 +89,7 @@ angular.module('gcalInvoice').controller(
              var keys = [];
              var dates = {};
              $scope.invoice.total = 0.0;
+             $scope.invoice.subTotal = 0.0;
              $scope.invoice.lineItems = [];
              $scope.invoice.eventIds = [];
              // group the events by their date
@@ -136,9 +138,10 @@ angular.module('gcalInvoice').controller(
 
          $scope.updateInvoiceAmounts = function() {
              $scope.invoice.total = 0.0;
+             $scope.invoice.subTotal = 0.0;
              angular.forEach($scope.invoice.lineItems, function(lineItem, index) {
                  lineItem.total = lineItem.hoursWorked * lineItem.hourlyRate * (1.0 - (lineItem.discount / 100.0));
-                 $scope.invoice.total += lineItem.total;
+                 $scope.invoice.subTotal += lineItem.total;
              });
          };
      }

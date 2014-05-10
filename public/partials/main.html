@@ -1,5 +1,21 @@
 <div ng-hide="loggedIn">
-  <p><button ng-click="login()">Login</button></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <h2>Feature #1</h2>
+        <p>Text about the feature</p>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <h2>Feature #2</h2>
+        <p>Text about the feature</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-2">
+        <button ng-click="login()" class="login"><span class="glyphicon glyphicon-log-in"></span>Login to MountainView Invoice</button>
+      </div>
+    </div>
+  </div>
 </div>
 <div ng-show="loggedIn">
   <h4>Filter Events By Date</h4>

@@ -52,7 +52,9 @@ angular.module('gcalInvoice').controller(
          $scope.selectCalendarAndFilterEvents = function() {
              var params = { calendarId: $scope.selectedCalendar };
              if ($scope.startYear) {
+                 $scope.endYear = $scope.startYear;
                  if ($scope.startMonth) {
+                     $scope.endMonth = $scope.startMonth;
                      params.timeMin = moment($scope.startMonth + ' ' + $scope.startYear, 'MMMM YYYY').startOf('month');
                  } else {
                      params.timeMin = moment($scope.startYear, 'YYYY').startOf('year');

@@ -2,10 +2,39 @@
 .navbar-default {
   background-color: #111111;
   color: #e7e7e7;
+  min-height: 0px;
+  padding: 5px;
+  border-radius: 0px;
 }
 .navbar-default a {
   color: darkseagreen;
 }
+.navbar-default .navbar-right:last-child {
+  margin-right: 0px;
+}
 .page-header small {
   font-size: 40%;
+}
+.form-control {
+  display: inline;
+  width: 30%;
+}
+.events-table,
+.invoice-table {
+  height: 380px;
+  overflow: auto;
+  border: 1px solid #dddddd;
+}
+.events-table .event .start-datetime {
+  width: 22%;
+}
+.events-table .event .end-datetime {
+  width: 17%;
+  font-size: 80%;
+}
+.events-table .event .summary {
+  width: 15%;
+}
+.events-table .event .description {
+  font-size: 80%;
 }

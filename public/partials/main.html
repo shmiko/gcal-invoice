@@ -18,78 +18,19 @@
   </div>
 </div>
 <div ng-show="loggedIn">
-  <h4>Filter Events By Date</h4>
-  <h4>Select Calendars</h4>
-  <p>
-    <label ng-repeat="calendar in calendars">
-      <input type="radio"
-             name="calendar"
-             ng-model="$parent.selectedCalendar"
-             ng-value="calendar.id" ng-change="selectCalendarAndFilterEvents()">{{ calendar.summary }}</input>
-      <br/>
-    </label>
-  </p>
-  <h4>Select Events</h4>
-  <table>
-    <thead>
-      <tr>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="event in events | orderBy:'+start.dateTime'">
-        <td>{{ event.start.dateTime | momentUtc:'h:mma DD MMMM YYYY' }}</td>
-        <td>{{ event.end.dateTime | momentUtc:'h:mma DD MMMM YYYY' }}</td>
-        <td>{{ event.summary }}</td>
-        <td>{{ event.description }}</td>
-        <td>
-          <button ng-click="addEventToSelected(event)">add</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <h4>Invoice</h4>
-  <p>Hourly rate: <input type="text" ng-model="invoice.hourlyRate" ng-changed="updateInvoiceAmounts()"></input></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Hours Worked</th>
-        <th>Hourly Rate ($/hr)</th>
-        <th>Discount (%)</th>
-        <th>Total ($/hr)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="lineItem in invoice.lineItems | orderBy:'+date'">
-        <td>{{ lineItem.date }}</td>
-        <td>{{ lineItem.description }}</td>
-        <td>{{ lineItem.hoursWorked }}</td>
-        <td><input type="text"
-                   ng-value="lineItem.hourlyRate"
-                   ng-model="lineItem.hourlyRate"
-                   ng-change="updateInvoiceAmounts()"></input>
-        </td>
-        <td><input type="text"
-                   ng-value="lineItem.discount"
-                   ng-model="lineItem.discount"
-                   ng-change="updateInvoiceAmounts()"></input>
-        </td>
-        <td>{{ lineItem.total | currency }}</td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th>Total Price</th>
-        <td>{{ invoice.total | currency }}</td>
-      </tr>
-    </tfoot>
-  </table>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="selectCalendar">Select Calendar</label>
+        <select id="selectCalendar"
+                ng-model="selectedCalendar"
+                ng-options="calendar.summary for calendar in calendars"
+                ng-change="selectCalendarAndFilterEvents()"></select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Add Events to Your Invoice</h2>
         <p>Show events from
           <select ng-model="startMonth"
                   ng-options="month for month in months"
@@ -98,4 +39,105 @@
                   ng-options="year for year in years"
                   ng-change="selectCalendarAndFilterEvents()"></select>
         </p>
+        <div class="events-table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="event" ng-repeat="event in events | orderBy:'+start.dateTime'">
+                <td class="start-datetime">{{ event.start.dateTime | momentUtc:'h:mma DD MMMM YYYY' }}</td>
+                <td class="end-datetime">{{ event.end.dateTime | momentUtc:'h:mma DD MMMM YYYY' }}</td>
+                <td class="summary">{{ event.summary }}</td>
+                <td class="description">{{ event.description }}</td>
+                <td>
+                  <button class="btn btn-primary" ng-click="addEventToSelected(event)">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    add
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>Invoice</h2>
+        <div class="invoice-table">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Hours Worked</th>
+                <th>Hourly Rate ($/hr)</th>
+                <th>Discount (%)</th>
+                <th>Total ($/hr)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="lineItem in invoice.lineItems | orderBy:'+date'">
+                <td>{{ lineItem.date }}</td>
+                <td>{{ lineItem.description }}</td>
+                <td>{{ lineItem.hoursWorked }}</td>
+                <td><input type="text"
+                           ng-value="lineItem.hourlyRate"
+                           ng-model="lineItem.hourlyRate"
+                           ng-change="updateInvoiceAmounts()" />
+                </td>
+                <td><input type="text"
+                           ng-value="lineItem.discount"
+                           ng-model="lineItem.discount"
+                           ng-change="updateInvoiceAmounts()" />
+                </td>
+                <td>{{ lineItem.total | currency }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="hourlyRate">Hourly rate:</label>
+            <input id="hourlyRate" class="form-control" type="text" ng-model="invoice.hourlyRate" ng-changed="updateInvoiceAmounts()" />
+          </div>
+          <div class="col-md-3">
+            Sub Total:
+          </div>
+          <div class="col-md-3">
+            {{ invoice.subTotal | currency }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="currency">Currency:</label>
+            <input id="currency" class="form-control" type="text" ng-model="invoice.currency" ng-changed="updateInvoiceTotals()" />
+          </div>
+          <div class="col-md-6">
+            <label for="taxRate">Taxes:</label>
+            <input id="taxRate" class="form-control" type="text" ng-model="invoice.taxRate" ng-changed="updateInvoiceTotals()" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            Total: <span>{{ invoice.total | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-6">
+        <h2>Download Your Invoice</h2>
+        <button type="button" class="btn btn-default btn-lg">PDF</button>
+        <button type="button" class="btn btn-default btn-lg">CSV</button>
+        <button type="button" class="btn btn-default btn-lg">JSON</button>
+        <button type="button" class="btn btn-primary btn-lg">HTML</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -41,7 +41,6 @@ angular.module('gcalInvoice').controller(
              });
          });
 
-         console.log(gapi.auth);
          // check to see if the route was to login, if so, open the google calendar login form
          if ($location.path() === '/login/') {
              $window.setTimeout(function() {
@@ -51,6 +50,7 @@ angular.module('gcalInvoice').controller(
 
          $scope.selectCalendarAndFilterEvents = function() {
              var params = { calendarId: $scope.selectedCalendar.id };
+             // set the start year and start month parameters
              if ($scope.startYear) {
                  $scope.endYear = $scope.startYear;
                  if ($scope.startMonth) {
@@ -61,6 +61,7 @@ angular.module('gcalInvoice').controller(
                  }
                  params.timeMin = params.timeMin.format(dateFormatRfc3339);
              }
+             // set the end year and end month parameters
              if ($scope.endYear) {
                  if ($scope.endMonth) {
                      params.timeMax = moment($scope.endMonth + ' ' + $scope.endYear, 'MMMM YYYY').endOf('month');

@@ -1,4 +1,4 @@
-angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs', 'googleExperiments'])
+angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs', 'googleExperiments', 'angulartics', 'angulartics.google.analytics'])
     .config(function(googleExperimentsProvider) {
         googleExperimentsProvider.configure({
             experimentId: 'JgFjWSjwQ7WiHxgBjY0CnQ'

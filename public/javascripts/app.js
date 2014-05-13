@@ -1,4 +1,9 @@
-angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs'])
+angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs', 'googleExperiments'])
+    .config(function(googleExperimentsProvider) {
+        googleExperimentsProvider.configure({
+            experimentId: 'JgFjWSjwQ7WiHxgBjY0CnQ'
+        });
+    })
     .config(function(googleLoginProvider) {
         googleLoginProvider.configure({
             clientId: '141159713889-6t2m78ce3fl53duingebjplpm26e861f.apps.googleusercontent.com',

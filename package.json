@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "lint": "jshint public/javascripts tests/unit && jscs public/javascripts tests/unit"
+    "lint": "jshint public/javascripts tests/unit && jscs public/javascripts tests/unit",
+    "test": "grunt karma:unit"
   }
 }

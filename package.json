@@ -23,8 +23,8 @@
     "phantomjs": "~1.9.18"
   },
   "devDependencies": {
-    "jscs": "^2.1.1",
-    "jshint": "^2.8.0"
+    "jscs": "~2.1.1",
+    "jshint": "~2.8.0"
   },
   "scripts": {
     "start": "node app.js",

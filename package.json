@@ -25,6 +25,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "lint": "jshint public/javascripts && jscs public/javascripts"
+    "lint": "jshint public/javascripts tests/unit && jscs public/javascripts tests/unit"
   }
 }

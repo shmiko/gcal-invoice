@@ -1,3 +1,4 @@
+/* global angular moment */
 angular.module('momentjs', [])
     .filter('momentUtc', function () {
         return function(obj, format) {

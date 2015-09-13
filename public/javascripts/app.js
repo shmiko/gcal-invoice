@@ -1,3 +1,4 @@
+/* global angular */
 angular.module('gcalInvoice', ['ngRoute', 'googleApi', 'momentjs', 'googleExperiments', 'angulartics', 'angulartics.google.analytics'])
     .config(function(googleExperimentsProvider) {
         googleExperimentsProvider.configure({

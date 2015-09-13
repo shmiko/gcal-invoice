@@ -1,3 +1,4 @@
+/* global angular moment */
 angular.module('gcalInvoice').controller(
     'InvoiceController',
     ['$scope', 'googleLogin', 'googleCalendar', '$location', '$window',

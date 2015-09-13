@@ -21,7 +21,7 @@ angular.module('momentjs', [])
             // {{ dateObject | moment:'YYYY-MM-DD' }}
             // {{ object | moment:'YYYY-MM-DD' }}
             // {{ array | moment:'YYYY-MM-DD' }}
-            if (angular.isDate(obj) || angular.isArray(obj) || angular.isObject(array)) {
+            if (angular.isDate(obj) || angular.isArray(obj) || angular.isObject(obj)) {
                 return moment(obj).format(arguments[1]);
             }
         };

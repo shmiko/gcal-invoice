@@ -11,7 +11,7 @@
     "grunt": "*",
     "grunt-contrib-jshint": "^0.11.3",
     "grunt-contrib-less": "~0.11.0",
-    "grunt-jscs": "^2.1.0",
+    "grunt-jscs": "~2.1.0",
     "grunt-karma": "*",
     "karma": "*",
     "karma-chrome-launcher": "*",

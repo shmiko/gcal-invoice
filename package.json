@@ -9,7 +9,7 @@
     "csv": "0.3.x",
     "express": "3.4.7",
     "grunt": "*",
-    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-jshint": "~0.11.3",
     "grunt-contrib-less": "~0.11.0",
     "grunt-jscs": "~2.1.0",
     "grunt-karma": "*",
@@ -18,9 +18,9 @@
     "karma-firefox-launcher": "*",
     "karma-mocha": "*",
     "karma-ng-scenario": "*",
-    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-phantomjs-launcher": "~0.2.1",
     "less": "~1.7.0",
-    "phantomjs": "^1.9.18"
+    "phantomjs": "~1.9.18"
   },
   "devDependencies": {
     "jscs": "^2.1.1",

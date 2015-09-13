@@ -6,6 +6,12 @@ calculate hours per day and give you a CSV invoice
 
 this is a single-page web application using AngularJS
 
+## Setup
+
+Install the packages required:
+
+    npm install
+
 ## Usage
 
 Run the server:

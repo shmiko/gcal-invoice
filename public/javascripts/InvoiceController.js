@@ -114,6 +114,18 @@ angular.module('gcalInvoice').controller(
                  }
              }
              keys.sort();
+             var createLineItem = function(event, index) {
+                 var startDateTime = $scope.getMomentFromGCalDateTime(event.start.dateTime);
+                 var endDateTime = $scope.getMomentFromGCalDateTime(event.end.dateTime);
+                 var duration = moment.duration(endDateTime.diff(startDateTime));
+                 lineItem.hoursWorked += duration.asHours();
+
+                 if (lineItem.description.indexOf(event.description) === -1) {
+                     lineItem.description.push(event.description);
+                 }
+
+                 $scope.invoice.eventIds.push(event.id);
+             };
              // create the invoice line items (in sorted order)
              for (key in keys) {
                  lineItem = {
@@ -123,18 +135,7 @@ angular.module('gcalInvoice').controller(
                      hourlyRate: $scope.invoice.hourlyRate,
                      discount: 0.0
                  };
-                 angular.forEach(dates[keys[key]], function(event, index) {
-                     startDateTime = $scope.getMomentFromGCalDateTime(event.start.dateTime);
-                     endDateTime = $scope.getMomentFromGCalDateTime(event.end.dateTime);
-                     duration = moment.duration(endDateTime.diff(startDateTime));
-                     lineItem.hoursWorked += duration.asHours();
-
-                     if (lineItem.description.indexOf(event.description) === -1) {
-                         lineItem.description.push(event.description);
-                     }
-
-                     $scope.invoice.eventIds.push(event.id);
-                 });
+                 angular.forEach(dates[keys[key]], createLineItem);
                  lineItem.description = lineItem.description.join(', ');
                  $scope.invoice.lineItems.push(lineItem);
              }

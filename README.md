@@ -26,6 +26,18 @@ Change the API token in `public/javascripts/app.js` on the line that says `clien
         });
     })
 
+Compile the CSS files:
+
+    grunt less
+
+Run the unit tests:
+
+    grunt test
+
+To lint the javascript files using jshint and jscs, you can do this:
+
+    grunt lint
+
 ## Usage
 
 Run the server:

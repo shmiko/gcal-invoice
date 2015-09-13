@@ -1,6 +1,9 @@
 gcal-invoice
 ============
 
+[![Build Status](https://travis-ci.org/omouse/gcal-invoice/.svg)](https://travis-ci.org/omouse/gcal-invoice)
+[![Codacy Badge](https://api.codacy.com/project/badge/fef705d0205e4abb92efd1c3f8554d7a)](https://www.codacy.com/app/omouse/gcal-invoice)
+
 invoice based on google calendar events, select the events, it will
 calculate hours per day and give you a CSV invoice
 

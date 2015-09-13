@@ -3,7 +3,7 @@ module.exports = function() {
         basePath: '../',
         frameworks: ['mocha'],
         reporters: ['progress'],
-        browsers: ['Firefox'],
+        browsers: ['PhantomJS'],
         autoWatch: true,
 
         singleRun: false,

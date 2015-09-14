@@ -50,36 +50,49 @@ angular.module('gcalInvoice').controller(
         }, 300);
       }
 
-      $scope.selectCalendarAndFilterEvents = function() {
-        var params = {};
+      var extractTimeMinFromStartYearAndMonth = function() {
         // set the start year and start month parameters
         if ($scope.startYear) {
           if ($scope.endYear === null || $scope.endYear < $scope.startYear) {
             $scope.endYear = $scope.startYear;
             $scope.endMonth = $scope.startMonth;
           }
+          var timeMin = moment($scope.startYear, 'YYYY').startOf('year');
           if ($scope.startMonth) {
             if ($scope.endMonth === null) {
               $scope.endMonth = $scope.startMonth;
             }
-            params.timeMin = moment(
+            timeMin = moment(
               $scope.startMonth + ' ' + $scope.startYear, 'MMMM YYYY'
               ).startOf('month');
-          } else {
-            params.timeMin = moment($scope.startYear, 'YYYY').startOf('year');
           }
-          params.timeMin = params.timeMin.format(dateFormatRfc3339);
+          return timeMin.format(dateFormatRfc3339);
         }
+      };
+
+      var extractTimeMaxFromEndYearAndMonth = function() {
         // set the end year and end month parameters
         if ($scope.endYear) {
+          var timeMax = moment($scope.endYear, 'YYYY').endOf('year');
           if ($scope.endMonth) {
-            params.timeMax = moment(
+            timeMax = moment(
               $scope.endMonth + ' ' + $scope.endYear, 'MMMM YYYY'
             ).endOf('month');
-          } else {
-            params.timeMax = moment($scope.endYear, 'YYYY').endOf('year');
           }
-          params.timeMax = params.timeMax.format(dateFormatRfc3339);
+          return timeMax.format(dateFormatRfc3339);
+        }
+        return null;
+      };
+
+      $scope.selectCalendarAndFilterEvents = function() {
+        var params = {};
+        var timeMin = extractTimeMinFromStartYearAndMonth();
+        var timeMax = extractTimeMaxFromEndYearAndMonth();
+        if (timeMin) {
+          params.timeMin = timeMin;
+        }
+        if (timeMax) {
+          params.timeMax = timeMax;
         }
         if ($scope.selectedCalendar) {
           params.calendarId = $scope.selectedCalendar.id;

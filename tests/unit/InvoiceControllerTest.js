@@ -149,7 +149,6 @@ describe('Invoice Controller', function() {
 
   it('has 1 invoice line item when there are 2 selected events that happen on' +
   ' the same day', function() {
-    var lineItem;
     scope.selectedEvents = [
       {
         summary: 'work',
@@ -169,7 +168,7 @@ describe('Invoice Controller', function() {
     assert.lengthOf(scope.selectedEvents, 2);
     assert.lengthOf(scope.invoice.lineItems, 1);
 
-    lineItem = scope.invoice.lineItems[0];
+    var lineItem = scope.invoice.lineItems[0];
     assert.propertyVal(lineItem, 'date', '2014-02-24');
     assert.propertyVal(lineItem, 'description', 'stuff');
     assert.propertyVal(lineItem, 'hoursWorked', 1.25 + 0.25);

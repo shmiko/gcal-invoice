@@ -248,7 +248,8 @@ describe('Invoice Controller', function() {
       assert.equal(scope.endMonth, 'January');
     });
     
-    it('calls the Google API for listing events', inject(function($q, googleCalendar) {
+    it('calls the Google API for listing events',
+    inject(function($q, googleCalendar) {
       googleCalendar.listEvents = sinon.stub();
       googleCalendar.listEvents.returns($q.when(null));
       scope.startYear = 2015;
@@ -261,4 +262,14 @@ describe('Invoice Controller', function() {
       googleCalendar.listEvents = undefined;
     }));
   });
+  
+  it('lists all calendars after google calendar is loaded',
+  inject(function($q, googleCalendar) {
+    googleCalendar.listCalendars = sinon.stub();
+    googleCalendar.listCalendars.returns($q.when(null));
+    scope.$broadcast('googleCalendar:loaded');
+    scope.$apply();
+    assert.ok(googleCalendar.listCalendars.calledOnce);
+    googleCalendar.listCalendars = undefined;
+  }));
 });

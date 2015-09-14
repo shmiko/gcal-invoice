@@ -106,7 +106,7 @@ angular.module('gcalInvoice').controller(
         $scope.invoice.lineItems = [];
         $scope.invoice.eventIds = [];
         // group the events by their date
-        angular.forEach($scope.selectedEvents, function(event, index) {
+        angular.forEach($scope.selectedEvents, function(event) {
           var startDateTime = $scope.getMomentFromGCalDateTime(
             event.start.dateTime);
           var day = startDateTime.format('YYYY-MM-DD');
@@ -122,7 +122,7 @@ angular.module('gcalInvoice').controller(
           }
         }
         keys.sort();
-        var createLineItem = function(event, index) {
+        var createLineItem = function(event) {
           var startDateTime = $scope.getMomentFromGCalDateTime(
             event.start.dateTime);
           var endDateTime = $scope.getMomentFromGCalDateTime(
@@ -156,7 +156,7 @@ angular.module('gcalInvoice').controller(
       $scope.updateInvoiceAmounts = function() {
         $scope.invoice.total = 0.0;
         $scope.invoice.subTotal = 0.0;
-        angular.forEach($scope.invoice.lineItems, function(lineItem, index) {
+        angular.forEach($scope.invoice.lineItems, function(lineItem) {
           var hourlyTotal = lineItem.hoursWorked * lineItem.hourlyRate;
           lineItem.total = hourlyTotal * (1.0 - (lineItem.discount / 100.0));
           $scope.invoice.subTotal += lineItem.total;

@@ -10,5 +10,15 @@ module.exports = function(config) {
         // test files
         './tests/unit/**/*.js'
     ]);
+    conf.reporters.push('coverage');
+    conf.coverageReporter = {
+        dir: 'coverage',
+        reporters: [
+            {type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt'}
+        ]
+    };
+    conf.preprocessors = {
+        'public/javascripts/**/*.js': ['coverage']
+    };
     config.set(conf);
 };

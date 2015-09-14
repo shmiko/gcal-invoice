@@ -23,6 +23,9 @@ module.exports = function(grunt) {
         },
         jscs: {
             all: ['public/javascripts/**.js', 'tests/unit/**.js']
+        },
+        codacy: {
+            all: ['coverage/report-lcovonly.txt']
         }
     });
     grunt.registerTask('test', ['karma:unit']);
@@ -30,4 +33,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-codacy');
 };

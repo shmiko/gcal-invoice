@@ -1,7 +1,7 @@
 module.exports = function() {
     return {
         basePath: '../',
-        frameworks: ['mocha'],
+        frameworks: ['mocha', 'sinon'],
         reporters: ['progress'],
         browsers: ['PhantomJS'],
         autoWatch: true,

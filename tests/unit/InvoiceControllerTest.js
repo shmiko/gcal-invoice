@@ -1,4 +1,4 @@
-/* global angular inject assert moment */
+/* global angular inject assert moment sinon */
 describe('Invoice Controller', function() {
   var scope;
   var controller;
@@ -7,6 +7,15 @@ describe('Invoice Controller', function() {
   beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
     controller = $controller('InvoiceController', {$scope: scope});
+  }));
+  
+  it('shows Google login when route is for login', inject(function($location, $window, $controller) {
+    sinon.spy($window, 'setTimeout');
+    $location.path('/login/');
+    scope.$apply();
+    controller = $controller('InvoiceController', {$scope: scope});
+    assert.ok($window.setTimeout.calledOnce);
+    $window.setTimeout.restore();
   }));
 
   it('should define the invoice object, its update method and selected events',
@@ -239,8 +248,17 @@ describe('Invoice Controller', function() {
       assert.equal(scope.endMonth, 'January');
     });
     
-    it('calls the Google API for listing events', function() {
-      // TODO: need to create a spy for googleCalendar.listEvents
-    });
+    it('calls the Google API for listing events', inject(function($q, googleCalendar) {
+      googleCalendar.listEvents = sinon.stub();
+      googleCalendar.listEvents.returns($q.when(null));
+      scope.startYear = 2015;
+      scope.startMonth = 'January';
+      scope.endYear = 2016;
+      scope.endMonth = 'December';
+      scope.selectedCalendar = {id:999};
+      scope.selectCalendarAndFilterEvents();
+      assert.ok(googleCalendar.listEvents.calledOnce);
+      googleCalendar.listEvents = undefined;
+    }));
   });
 });

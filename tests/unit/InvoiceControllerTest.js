@@ -189,12 +189,34 @@ describe('Invoice Controller', function() {
 
   it('has 2 invoice line items when there are 3 selected events and 2 of them' +
   ' occur on the same day', function() {
+    scope.selectedEvents = [
+      {
+        summary: 'same day',
+        description: 'stuff',
+        start: {dateTime: '2014-02-24T01:00:00.921Z'},
+        end: {dateTime: '2014-02-24T02:15:00.921Z'}
+      },
+      {
+        summary: 'same day',
+        description: 'stuff',
+        start: {dateTime: '2014-02-24T13:00:00.921Z'},
+        end: {dateTime: '2014-02-24T13:15:00.921Z'}
+      },
+      {
+        summary: 'another day',
+        description: 'other stuff',
+        start: {dateTime: '2015-01-01T01:01:00.111Z'},
+        end: {dateTime: '2015-01-01T08:01:00.111Z'}
+      }
+    ];
+    scope.updateInvoice();
     assert.lengthOf(scope.selectedEvents, 3);
     assert.lengthOf(scope.invoice.lineItems, 2);
   });
 
-  it('splits a selected event that takes place over 3 days into 3 invoice ' +
+  it.skip('splits a selected event that takes place over 3 days into 3 invoice ' +
   'line items', function() {
+    // TODO
     assert.lengthOf(scope.selectedEvents, 3);
     assert.lengthOf(scope.invoice.lineItems, 3);
   });

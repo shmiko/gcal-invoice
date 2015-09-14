@@ -51,14 +51,17 @@ angular.module('gcalInvoice').controller(
       }
 
       $scope.selectCalendarAndFilterEvents = function() {
-        var params = {
-          calendarId: $scope.selectedCalendar.id
-        };
+        var params = {};
         // set the start year and start month parameters
         if ($scope.startYear) {
-          $scope.endYear = $scope.startYear;
-          if ($scope.startMonth) {
+          if ($scope.endYear === null || $scope.endYear < $scope.startYear) {
+            $scope.endYear = $scope.startYear;
             $scope.endMonth = $scope.startMonth;
+          }
+          if ($scope.startMonth) {
+            if ($scope.endMonth === null) {
+              $scope.endMonth = $scope.startMonth;
+            }
             params.timeMin = moment(
               $scope.startMonth + ' ' + $scope.startYear, 'MMMM YYYY'
               ).startOf('month');
@@ -79,6 +82,7 @@ angular.module('gcalInvoice').controller(
           params.timeMax = params.timeMax.format(dateFormatRfc3339);
         }
         if ($scope.selectedCalendar) {
+          params.calendarId = $scope.selectedCalendar.id;
           googleCalendar.listEvents(params).then(function(events) {
             $scope.events = events;
           });

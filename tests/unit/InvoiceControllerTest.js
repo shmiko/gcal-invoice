@@ -189,4 +189,58 @@ describe('Invoice Controller', function() {
     assert.lengthOf(scope.selectedEvents, 3);
     assert.lengthOf(scope.invoice.lineItems, 3);
   });
+  
+  describe('select calendar and filter events', function() {
+    it('sets the end date filter to the start date filter', function() {
+      scope.startYear = 2009;
+      scope.startMonth = 'December';
+      scope.selectCalendarAndFilterEvents();
+      assert.equal(scope.endYear, 2009);
+      assert.equal(scope.endMonth, 'December');
+    });
+
+    it('does nothing when the end date filter is set', function() {
+      scope.startYear = 2015;
+      scope.startMonth = 'February';
+      scope.endYear = 2016;
+      scope.endMonth = 'April';
+      scope.selectCalendarAndFilterEvents();
+      assert.equal(scope.startYear, 2015);
+      assert.equal(scope.startMonth, 'February');
+      assert.equal(scope.endYear, 2016);
+      assert.equal(scope.endMonth, 'April');
+    });
+    
+    it('sets the end year only if it is earlier than the start ' +
+    'year or when end year is null', function() {
+      scope.startYear = 2015;
+      scope.endYear = 2014;
+      scope.selectCalendarAndFilterEvents();
+      assert.equal(scope.startYear, 2015);
+      assert.equal(scope.endYear, 2015);
+      
+      scope.startYear = 2015;
+      scope.endYear = null;
+      scope.selectCalendarAndFilterEvents();
+      assert.equal(scope.startYear, 2015);
+      assert.equal(scope.endYear, 2015);
+    });
+    
+    it('sets the end month to the start month when end month and year are ' +
+    'earlier then the start month and year', function() {
+      scope.startYear = 2015;
+      scope.startMonth = 'January';
+      scope.endYear = 2014;
+      scope.endMonth = 'December';
+      scope.selectCalendarAndFilterEvents();
+      assert.equal(scope.startYear, 2015);
+      assert.equal(scope.startMonth, 'January');
+      assert.equal(scope.endYear, 2015);
+      assert.equal(scope.endMonth, 'January');
+    });
+    
+    it('calls the Google API for listing events', function() {
+      // TODO: need to create a spy for googleCalendar.listEvents
+    });
+  });
 });

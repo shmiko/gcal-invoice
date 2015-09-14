@@ -138,16 +138,18 @@ angular.module('gcalInvoice').controller(
         };
         // create the invoice line items (in sorted order)
         for (key in keys) {
-          lineItem = {
-            date: keys[key],
-            description: [],
-            hoursWorked: 0.0,
-            hourlyRate: $scope.invoice.hourlyRate,
-            discount: 0.0
-          };
-          angular.forEach(dates[keys[key]], createLineItem);
-          lineItem.description = lineItem.description.join(', ');
-          $scope.invoice.lineItems.push(lineItem);
+          if (keys.hasOwnProperty(key)) {
+            lineItem = {
+              date: keys[key],
+              description: [],
+              hoursWorked: 0.0,
+              hourlyRate: $scope.invoice.hourlyRate,
+              discount: 0.0
+            };
+            angular.forEach(dates[keys[key]], createLineItem);
+            lineItem.description = lineItem.description.join(', ');
+            $scope.invoice.lineItems.push(lineItem);
+          }
         }
 
         $scope.updateInvoiceAmounts();

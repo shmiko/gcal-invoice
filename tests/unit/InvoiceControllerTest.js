@@ -9,6 +9,9 @@ describe('Invoice Controller', function() {
     controller = $controller('InvoiceController', {$scope: scope});
   }));
   
+  /**
+   * @see [Use Case](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-logins-and-sees-calendar-selection)
+   */
   it('shows Google login when route is for login', inject(function($location, $window, $controller) {
     sinon.spy($window, 'setTimeout');
     $location.path('/login/');
@@ -57,6 +60,9 @@ describe('Invoice Controller', function() {
     assert.equal(duration.asHours(), 1, 'should calculate hour difference');
   });
 
+  /**
+   * @see [Use Case](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-can-select-calendar-events-and-see-them-displayed-as-a-table)
+   */
   it('lists all event ids that were used in creating the invoice', function() {
     var eventId = '12938kajsda90w8deqw2e';
     var event = {
@@ -93,6 +99,9 @@ describe('Invoice Controller', function() {
     assert.lengthOf(scope.invoice.eventIds, 1);
   });
 
+  /**
+   * @see [Use Case](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-can-select-calendar-events-and-see-them-displayed-as-a-table)
+   */
   it('removes events from the events list when they are selected', function() {
     var event = {
       summary: 'work',
@@ -110,6 +119,9 @@ describe('Invoice Controller', function() {
     assert.lengthOf(scope.selectedEvents, 1, 'one selected event');
   });
 
+  /**
+   * @see [Use Case](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-can-select-calendar-events-and-see-them-displayed-as-a-table)
+   */
   it('updates each invoice line item\'s total when the line item\'s discount' +
   ' or hourly rate changes', function() {
     scope.selectedEvents = [{
@@ -221,6 +233,10 @@ describe('Invoice Controller', function() {
     assert.lengthOf(scope.invoice.lineItems, 3);
   });
   
+  /**
+   * @see [Use Case: select calendar](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-selects-a-calendar-and-sees-event-listing)
+   * @see [Use Case: filter events](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-can-filter-event-listing-by-two-dates-start-date-and-end-date)
+   */
   describe('select calendar and filter events', function() {
     it('sets the end date filter to the start date filter', function() {
       scope.startYear = 2009;
@@ -285,6 +301,9 @@ describe('Invoice Controller', function() {
     }));
   });
   
+  /**
+   * @see [Use Case](https://github.com/omouse/gcal-invoice/wiki/Software-Requirements-Specification#user-logins-and-sees-calendar-selection)
+   */
   it('lists all calendars after google calendar is loaded',
   inject(function($q, googleCalendar) {
     googleCalendar.listCalendars = sinon.stub();
